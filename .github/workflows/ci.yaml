@@ -15,6 +15,8 @@ jobs:
         ref: 'new'
         fetch-depth: 0
     - name: Create Tag
+      env:
+        GITHUB_TOKEN: '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'
       run: |
         git config --global user.email "aniket.chavan@checkred.com"
         git config --global user.name "achavan-cr"
