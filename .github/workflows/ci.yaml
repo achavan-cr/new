@@ -16,6 +16,8 @@ jobs:
         fetch-depth: 0
     - name: Create Tag
       run: |
+        git config --global user.email "aniket.chavan@checkred.com"
+        git config --global user.name "achavan-cr"
         git log
         git tag v1.0.0 52dcc9b -m new
     - name: Push Tag
