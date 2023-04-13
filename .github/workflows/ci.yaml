@@ -24,4 +24,4 @@ jobs:
         git tag v1.0.0 52dcc9b -m new
     - name: Push Tag
       run: |
-        git push origin v1.0.0
+        git push origin v1.0.0 --force
