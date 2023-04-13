@@ -1,0 +1,19 @@
+name: Tag Release
+
+on:
+  push:
+    branches:
+      - new
+
+jobs:
+  tag_release:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+    - name: Create Tag
+      run: |
+        git tag v1.0.0
+    - name: Push Tag
+      run: |
+        git push origin v1.0.0
