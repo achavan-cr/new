@@ -24,4 +24,10 @@ jobs:
         git tag v1.0.0 52dcc9b -m new
     - name: Push Tag
       run: |
-        git push origin --tags
+        #git push origin --tags
+    
+    - name: Push Tag
+      uses: ad-m/github-push-action@master
+      with:
+          github_token: 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
+          tags: v1.0.0
