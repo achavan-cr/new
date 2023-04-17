@@ -1,34 +1,21 @@
-name: Build and Deploy
-on:
-  push:
-    branches:
-      - new
+name: Create issue on commit
+
+on: [ push ]
 
 jobs:
-  build:
+  create_issue:
     runs-on: ubuntu-latest
-
+    permissions:
+      issues: write
     steps:
-      - uses: actions/checkout@v2
-      
-      - name: Install dependencies
+      - name: Create issue using REST API
         run: |
-          npm install
-          
-      - name: Build
-        run: |
-          npm run build
-          
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-
-    steps:
-      - uses: actions/checkout@v2
-      
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3.8.12
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
+          curl --request POST \
+          --url https://api.github.com/repos/${{ github.repository }}/issues \
+          --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+          --header 'content-type: application/json' \
+          --data '{
+            "title": "Automated issue for commit: ${{ github.sha }}",
+            "body": "This issue was automatically created by the GitHub Action workflow **${{ github.workflow }}**. \n\n The commit hash was: _${{ github.sha }}_."
+            }' \
+          --fail
