@@ -1,5 +1,29 @@
 # Introduction to Writing Tutorials in Cloud Shell
 
+## Project Setup
+
+Google Cloud Platform organizes resources into projects. This allows you to
+collect all the related resources for a single application in one place.
+
+<walkthrough-project-setup></walkthrough-project-setup>
+
+
+```bash
+gcloud services enable iamcredentials.googleapis.com --project=<walkthrough-project-id/>	
+```
+```bash
+gcloud iam service-accounts create checkred-integration-account --display-name "CheckRed Integration"
+```
+```bash
+gcloud projects add-iam-policy-binding $(PROJECT_ID) \
+  --member="serviceAccount:my-service-account@YOUR_PROJECT_ID.iam.gserviceaccount.com" \
+  --role="roles/iam.viewer"
+```
+```bash
+gcloud projects add-iam-policy-binding $(PROJECT_ID) \
+  --member="test-sts-checkred-external-aco@checkred-external-app.iam.gserviceaccount.com" \
+  --role="roles/iam.serviceAccountTokenCreator"
+```
 
 ## Let's get started!
 
@@ -7,21 +31,30 @@ Get your users up and running quickly with your project by including an interact
 
 This guide will show you how to build your own interactive tutorial (like this one). It'll also walk you through generating a button that users can use to launch your finished tutorial.
 
-**Time to complete**: About 10 minutes
+**Time to complete**: About 5 minutes
 
 Click the **Start** button to move to the next step.
 
 
 ## What is Cloud Shell?
 
-Before we jump in, let's briefly go over what Cloud Shell can do.
 
-Cloud Shell is a personal hosted Virtual Machine which comes pre-loaded with developer tools for Google Cloud products. This interactive shell environment comes with a built-in code editor, persistent disk storage, and web preview functionality. To use command-line access alone, visit [console.cloud.google.com/cloudshell](https://console.cloud.google.com/cloudshell).
-
-You can direct your users to Cloud Shell to help them quickly get started with your project; giving them an opportunity to step through a use case and familiarize themselves with your project's functionality.
-
-Continue on to the next step to start setting up your tutorial.
-
+```bash
+gcloud services enable iamcredentials.googleapis.com --project=<PROJECT-ID>
+```
+```bash
+gcloud iam service-accounts create checkred-integration-account --display-name "CheckRed Integration"
+```
+```bash
+gcloud projects add-iam-policy-binding $(PROJECT_ID) \
+  --member="serviceAccount:my-service-account@YOUR_PROJECT_ID.iam.gserviceaccount.com" \
+  --role="roles/iam.viewer"
+```
+```bash
+gcloud projects add-iam-policy-binding $(PROJECT_ID) \
+  --member="test-sts-checkred-external-aco@checkred-external-app.iam.gserviceaccount.com" \
+  --role="roles/iam.serviceAccountTokenCreator"
+```
 
 ## In-context tutorials
 
@@ -188,4 +221,3 @@ Likewise, once you've replaced `YOUR_REPO_URL_HERE` and `TUTORIAL_FILE.md` in th
 You’re all set!
 
 You can now have users launch your tutorial in Cloud Shell and have them start using your project with ease.
-
