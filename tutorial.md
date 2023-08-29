@@ -21,6 +21,7 @@ gcloud projects add-iam-policy-binding <walkthrough-project-id/> \
   --member="serviceAccount:<your-service-account>@<walkthrough-project-id/>.iam.gserviceaccount.com" \
   --role="roles/iam.viewer" --project=<walkthrough-project-id/>
 ```
+
 ```bash
 gcloud projects add-iam-policy-binding $(PROJECT_ID) \
   --member="test-sts-checkred-external-aco@checkred-external-app.iam.gserviceaccount.com" \
