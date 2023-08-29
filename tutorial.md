@@ -1,58 +1,30 @@
-# Introduction to Writing Tutorials in Cloud Shell
+# CheckRed's GCP App Integration
 
 ## Project Setup
 
-Google Cloud Platform organizes resources into projects. This allows you to
-collect all the related resources for a single application in one place.
-
+Google Cloud Platform organizes resources into projects.
+Select your GCP project to integrate with CheckRed Platform
 <walkthrough-project-setup></walkthrough-project-setup>
 
+## Enable IAM API for generating short-lived credentials & impersonating service accounts. 
 ```bash
 gcloud services enable iamcredentials.googleapis.com --project=<walkthrough-project-id/>
 ```
+## Create service account for CheckRed platform integration
 ```bash
 gcloud iam service-accounts create checkred-integration-account --display-name "CheckRed Integration" --project=<walkthrough-project-id/>
 ```
+
+## Add IAM policy to service account created in above step
 ```bash
-gcloud projects add-iam-policy-binding $(PROJECT_ID) \
-  --member="serviceAccount:my-service-account@YOUR_PROJECT_ID.iam.gserviceaccount.com" \
+gcloud projects add-iam-policy-binding <walkthrough-project-id/> \
+  --member="serviceAccount:<your-service-account>@<walkthrough-project-id/>.iam.gserviceaccount.com" \
   --role="roles/iam.viewer" --project=<walkthrough-project-id/>
 ```
 ```bash
 gcloud projects add-iam-policy-binding $(PROJECT_ID) \
   --member="test-sts-checkred-external-aco@checkred-external-app.iam.gserviceaccount.com" \
   --role="roles/iam.serviceAccountTokenCreator" --project=<walkthrough-project-id/>
-```
-
-## Let's get started!
-
-Get your users up and running quickly with your project by including an interactive tutorial.
-
-This guide will show you how to build your own interactive tutorial (like this one). It'll also walk you through generating a button that users can use to launch your finished tutorial.
-
-**Time to complete**: About 5 minutes
-
-Click the **Start** button to move to the next step.
-
-
-## What is Cloud Shell?
-
-
-```bash
-gcloud services enable iamcredentials.googleapis.com --project=<PROJECT-ID>
-```
-```bash
-gcloud iam service-accounts create checkred-integration-account --display-name "CheckRed Integration"
-```
-```bash
-gcloud projects add-iam-policy-binding $(PROJECT_ID) \
-  --member="serviceAccount:my-service-account@YOUR_PROJECT_ID.iam.gserviceaccount.com" \
-  --role="roles/iam.viewer"
-```
-```bash
-gcloud projects add-iam-policy-binding $(PROJECT_ID) \
-  --member="test-sts-checkred-external-aco@checkred-external-app.iam.gserviceaccount.com" \
-  --role="roles/iam.serviceAccountTokenCreator"
 ```
 
 ## In-context tutorials
